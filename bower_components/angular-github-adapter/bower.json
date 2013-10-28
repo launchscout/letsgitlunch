@@ -1,0 +1,24 @@
+{
+  "author": {
+    "name": "Pascal Precht"
+  },
+  "name": "angular-github-adapter",
+  "description": "Angular adapter module for github.js",
+  "version": "0.1.0",
+  "homepage": "http://github.com/PascalPrecht/angular-github-adapter",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PascalPrecht/angular-github-adapter"
+  },
+  "dependencies": {
+    "angular": "1.0.7",
+    "github": "~0.7.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.0.7"
+  },
+  "readme": "# angular-github-adapter\n\n> Angular adapter module for github.js\n\nFull API: [Github.js](https://github.com/michael/github)\n\n## Quick Start\n\nInstall adapter via bower:\n\n````\n$ bower install angular-github-adapter\n````\n\nDeclare it as dependency in your app:\n\n```js\nangular.module('myApp', ['pascalprecht.github-adapter']);\n```\n\nUse the `$githubProvider` to configure the service:\n\n```js\nangular.module('myApp').config(function ($githubProvider) {\n  $githubProvider.username('YOUR_USERNAME');\n  $githubProvider.password('YOUR_PASSWORD');\n  $githubProvider.authType('basic');\n});\n```\n\nIt is also possible to set credentials through the service itself\n\n```js\n$github.setCreds('YOUR_USERNAME', 'YOUR_PASSWORD', 'basic');\n```\n\nNow you can access `$github` service within your controller and services. It provides the same API as [Github.js](https://github.com/michael/github), just with promises :)\n",
+  "readmeFilename": "README.md",
+  "gitHead": "ebc903e14edbd1d7548cdfda3351e7dd29a8efcd",
+  "_id": "angular-github-adapter@0.1.0"
+}

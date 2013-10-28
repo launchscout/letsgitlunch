@@ -1,0 +1,24 @@
+{
+  "name": "angular-googleapi",
+  "version": "0.0.0",
+  "main": "src/angular-googleapi.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests",
+    "vendor"
+  ],
+  "gitHead": "8aff21a4940bfdede4b79aa4910ed6331961e579",
+  "readme": "angular-googleapi\n=================\n\nangular module to integrate google apis\n\nDemo\n----\n\nClone this repo. Install node and http-server npm. Run http-server -p 8000\nand go to http://localhost:8000/example.html to see an app that will let you load\nentries from your google calendar",
+  "readmeFilename": "README.md",
+  "_id": "angular-googleapi@0.0.1",
+  "description": "angular-googleapi =================",
+  "commit": "8aff21a4940bfdede4b79aa4910ed6331961e579",
+  "repository": {
+    "type": "local-repo",
+    "path": "../angular-googleapi/"
+  }
+}

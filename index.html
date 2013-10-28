@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app="demo" ng-controller="DemoCtrl">
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>Client-side authentication demo</title>
+</head>
+
+<body>
+
+<div>
+  <div>
+  <form>
+    <button ng-click="login()">Login</button>
+    <button ng-click="loginToGithub()">Login to Github</button>
+    <select name="calendar" ng-model="selectedCalendar" ng-options="cal.summary for cal in calendars"></select>
+    <button ng-click="loadCalendars()">Get Calendars</button>
+    <button ng-click="loadEvents()">Get Calendar Entries</button>
+    <button ng-click="loadMembers()">Load members</button>
+    <button ng-click="addEvent()">Add Event</button>
+    Lunch on: <input type="date" ng-model="lunchDate" />
+    At: <input type="time" ng-model="lunchTime" />
+  </form>
+  </div>
+
+  <ul>
+    <li ng-repeat="item in calendarItems">{{item.summary}}</li>
+  </ul>
+  Members:
+  <ul>
+    <li ng-repeat="member in members">{{member.login}}</li>
+  </ul>
+  <div ng-show="newEvent">
+    New Event: {{ newEvent}}
+  </div>
+  <div ng-show="accessToken" style="display: none">
+    <h1>You're authenticated!</h1>
+
+    <h2>Access token</h2>
+    <pre>{{accessToken}}</pre>
+
+    <div ng-show="expiresIn">
+      <h2>Expiry</h2>
+      <p>Expires in {{expiresIn}} seconds.</p>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/underscore.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="vendor/ui-bootstrap-tpls-0.6.0.js"></script>
+<script src="bowser_components/angular-googleapi/angular-googleapi.js"></script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
+<script src="controllers.js"></script>
+<script src="https://apis.google.com/js/client.js"></script>
+<script type="text/javascript" src="http://platform.linkedin.com/in.js">/*
+  api_key: k0ei6t2x9bcb
+*/</script>
+
+
+<!-- 3. Displays a button to let the viewer authenticate -->
+<script type="IN/Login"></script>
+
+</body>
+</html>
