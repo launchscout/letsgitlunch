@@ -46,7 +46,7 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
             $http.get(randomMember.url).success(function(member) {
                 $scope.chosenMember = member;
                 var event = {
-                    attendees: [{email: "chris@gaslight.co"}, {email: $scope.githubUser.email}],
+                    attendees: [{email: member.email}, {email: $scope.githubUser.email}],
                     summary: "Random Gaslight Lunch",
                     location: "Somewheres yummy",
                     start: { dateTime: lunchStart.toDate() },
