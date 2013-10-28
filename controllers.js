@@ -9,7 +9,8 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
     })
     .controller('DemoCtrl', function ($scope, $http, googleLogin, googleCalendar, $resource, angularFireAuth) {
 
-        var ref = new Firebase("https://propupdev.firebaseio.com/props");
+        $scope.sharedCalendarId = "gaslight.co_4ctvekpc8actkvfsuthg17lcn0@group.calendar.google.com";
+        var ref = new Firebase("https://letsgitlunch.firebaseio.com/");
         var githubMembers = $resource('https://api.github.com/orgs/:org/members');
         $scope.login = function () {
             googleLogin.login();
@@ -43,15 +44,16 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
             lunchStart = moment(self.lunchDate + " " + self.lunchTime);
             lunchEnd = lunchStart.clone().add("hours", 1);
             $http.get(randomMember.url).success(function(member) {
+                $scope.chosenMember = member;
                 var event = {
-                    attendees: [{email: "chris@gaslight.co"}],
+                    attendees: [{email: "chris@gaslight.co"}, {email: $scope.githubUser.email}],
                     summary: "Random Gaslight Lunch",
                     location: "Somewheres yummy",
                     start: { dateTime: lunchStart.toDate() },
                     end: { dateTime: lunchEnd.toDate() }
                 };
                 $scope.newEvent = googleCalendar.createEvent({
-                    calendarId: self.selectedCalendar.id,
+                    calendarId: self.sharedCalendarId,
                     resource: event
                 });
 

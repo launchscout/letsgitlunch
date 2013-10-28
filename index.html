@@ -11,38 +11,16 @@
 <div>
   <div>
   <form>
-    <button ng-click="login()">Login</button>
-    <button ng-click="loginToGithub()">Login to Github</button>
-    <select name="calendar" ng-model="selectedCalendar" ng-options="cal.summary for cal in calendars"></select>
-    <button ng-click="loadCalendars()">Get Calendars</button>
-    <button ng-click="loadEvents()">Get Calendar Entries</button>
-    <button ng-click="loadMembers()">Load members</button>
-    <button ng-click="addEvent()">Add Event</button>
+    <p><button ng-click="login()">Login To Google</button></p>
+    <p><button ng-click="loginToGithub()">Login to Github</button></p>
     Lunch on: <input type="date" ng-model="lunchDate" />
     At: <input type="time" ng-model="lunchTime" />
+    <button ng-click="addEvent()">Lunch me!</button>
   </form>
   </div>
 
-  <ul>
-    <li ng-repeat="item in calendarItems">{{item.summary}}</li>
-  </ul>
-  Members:
-  <ul>
-    <li ng-repeat="member in members">{{member.login}}</li>
-  </ul>
   <div ng-show="newEvent">
-    New Event: {{ newEvent}}
-  </div>
-  <div ng-show="accessToken" style="display: none">
-    <h1>You're authenticated!</h1>
-
-    <h2>Access token</h2>
-    <pre>{{accessToken}}</pre>
-
-    <div ng-show="expiresIn">
-      <h2>Expiry</h2>
-      <p>Expires in {{expiresIn}} seconds.</p>
-    </div>
+    Woot! Your going to lunch with {{chosenMember.name}}
   </div>
 </div>
 
