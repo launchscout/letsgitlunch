@@ -49,6 +49,7 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
                     attendees: [{email: member.email}, {email: $scope.githubUser.email}],
                     summary: "Random Gaslight Lunch",
                     location: "Somewheres yummy",
+                    description: member.name + " and " + $scope.githubUser.name,
                     start: { dateTime: lunchStart.toDate() },
                     end: { dateTime: lunchEnd.toDate() }
                 };
