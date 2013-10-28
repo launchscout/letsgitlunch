@@ -12,8 +12,10 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
         $scope.sharedCalendarId = "gaslight.co_4ctvekpc8actkvfsuthg17lcn0@group.calendar.google.com";
         var ref = new Firebase("https://letsgitlunch.firebaseio.com/");
         var githubMembers = $resource('https://api.github.com/orgs/:org/members');
+        var githubOrgs = $resource('https://api.github.com/users/:user/orgs');
+
         $scope.login = function () {
-            googleLogin.login();
+            googleLogin.login().then(function() {}, function() { console.error("failed login")});
         };
 
         angularFireAuth.initialize(ref, {scope: $scope, name: "githubUser"});
@@ -22,13 +24,18 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
         }
 
         $scope.$on("angularFireAuth:login", function() {
-            $scope.members = githubMembers.query({org: "gaslight"})
+            $scope.organizations = githubOrgs.query({user: $scope.githubUser.login});
+            $scope.members = githubMembers.query({org: "gaslight"});
+            $scope.loggedIntoGithub = true;
         });
 
         $scope.loadEvents = function() {
             this.calendarItems = googleCalendar.listEvents();
         }
 
+        $scope.$on("google:authenticated", function(auth) {
+            $scope.loggedIntoGoogle = true;
+        });
         $scope.$on("googleCalendar:loaded", function() {
             googleCalendar.listCalendars().then(function(cals) {
                 $scope.calendars = cals;
@@ -49,13 +56,18 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
                     attendees: [{email: member.email}, {email: $scope.githubUser.email}],
                     summary: "Random Gaslight Lunch",
                     location: "Somewheres yummy",
+                    sendNotifications: true,
                     description: member.name + " and " + $scope.githubUser.name,
                     start: { dateTime: lunchStart.toDate() },
                     end: { dateTime: lunchEnd.toDate() }
                 };
-                $scope.newEvent = googleCalendar.createEvent({
+                googleCalendar.createEvent({
                     calendarId: self.sharedCalendarId,
                     resource: event
+                }).then(function(event) {
+                    $scope.newEvent = event;
+                }, function(error) {
+                    $scope.eventCreationError = error;
                 });
 
             });

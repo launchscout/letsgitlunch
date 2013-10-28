@@ -11,16 +11,17 @@
 <div>
   <div>
   <form>
-    <p><button ng-click="login()">Login To Google</button></p>
-    <p><button ng-click="loginToGithub()">Login to Github</button></p>
+    <p ng-show="!loggedIntoGoogle"><button ng-click="login()">Login To Google</button></p>
+    <p ng-show="!loggedIntoGithub"><button ng-click="loginToGithub()">Login to Github</button></p>
     Lunch on: <input type="date" ng-model="lunchDate" />
     At: <input type="time" ng-model="lunchTime" />
-    <button ng-click="addEvent()">Lunch me!</button>
+    <button ng-click="addEvent()" ng-disabled="!loggedIntoGoogle || !loggedIntoGithub">Lunch me!</button>
   </form>
   </div>
 
-  <div ng-show="newEvent">
-    Woot! Your going to lunch with {{chosenMember.name}}
+  <div ng-show="chosenMember">
+    Woot! Your going to lunch with {{chosenMember.name}} <img ng-src="{{chosenMember.avatar_url}}" />
+    <div ng-show="newEvent"><a href="{{newEvent.htmlLink}}">Calendar entry</a></div>
   </div>
 </div>
 
@@ -31,13 +32,14 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="vendor/ui-bootstrap-tpls-0.6.0.js"></script>
 <script src="bower_components/angular-googleapi/src/angular-googleapi.js"></script>
+<!-- script src="vendor/angular-googleapi.js"></script -->
     <script src="https://cdn.firebase.com/v0/firebase.js"></script>
     <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
 <script src="controllers.js"></script>
 <script>
   function googleClientLoaded() {
-    // gapi.auth.authorize({client_id: "nothing", scope: [], immediate: false});
+    gapi.auth.init(function () { });
   }
 </script>
 <script src="https://apis.google.com/js/client.js?onload=googleClientLoaded"></script>
