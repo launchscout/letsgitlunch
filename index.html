@@ -57,14 +57,15 @@
     <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
 <script src="controllers.js"></script>
-<script src="https://apis.google.com/js/client.js"></script>
-<script type="text/javascript" src="http://platform.linkedin.com/in.js">/*
+<script>
+  function googleClientLoaded() {
+    gapi.auth.authorize({client_id: "nothing", scope: [], immediate: false});
+  }
+</script>
+<script src="https://apis.google.com/js/client.js?onload=goolgeClientLoaded"></script>
   api_key: k0ei6t2x9bcb
 */</script>
 
-
-<!-- 3. Displays a button to let the viewer authenticate -->
-<script type="IN/Login"></script>
 
 </body>
 </html>
