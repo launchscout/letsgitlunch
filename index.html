@@ -11,11 +11,13 @@
 <div>
   <div>
   <form>
-    <p ng-show="!loggedIntoGoogle"><button ng-click="login()">Login To Google</button></p>
-    <p ng-show="!loggedIntoGithub"><button ng-click="loginToGithub()">Login to Github</button></p>
+    <div ng-show="!loggedIntoGoogle"><button ng-click="login()">Login To Google</button></div>
+    <div ng-show="loggedIntoGoogle">Choose your calendar: <select ng-model="selectedCalendar" ng-options="calendar.summary for calendar in calendars"></select></div>
+    <div ng-show="!loggedIntoGithub"><button ng-click="loginToGithub()">Login to Github</button></div>
+    <div ng-show="loggedIntoGithub">Choose your Github org: <select ng-model="selectedOrganization" ng-options="org.login for org in organizations" ng-change="loadMembers()"></select></div>
     Lunch on: <input type="date" ng-model="lunchDate" />
     At: <input type="time" ng-model="lunchTime" />
-    <button ng-click="addEvent()" ng-disabled="!loggedIntoGoogle || !loggedIntoGithub">Lunch me!</button>
+    <button ng-click="addEvent()" ng-disabled="!selectedCalendar || !selectedOrganization">Lunch me!</button>
   </form>
   </div>
 

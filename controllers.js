@@ -25,22 +25,23 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
 
         $scope.$on("angularFireAuth:login", function() {
             $scope.organizations = githubOrgs.query({user: $scope.githubUser.login});
-            $scope.members = githubMembers.query({org: "gaslight"});
             $scope.loggedIntoGithub = true;
         });
 
-        $scope.loadEvents = function() {
-            this.calendarItems = googleCalendar.listEvents();
+        $scope.loadMembers = function() {
+            $scope.members = githubMembers.query({org: this.selectedOrganization.login});
         }
 
         $scope.$on("google:authenticated", function(auth) {
             $scope.loggedIntoGoogle = true;
         });
+
         $scope.$on("googleCalendar:loaded", function() {
             googleCalendar.listCalendars().then(function(cals) {
                 $scope.calendars = cals;
             });
         });
+
         $scope.loadCalendars = function() {
             this.calendars = googleCalendar.listCalendars();
         }
@@ -56,13 +57,13 @@ angular.module('demo', ["googleApi", "ngResource", "firebase", "ngRoute", "ui.bo
                     attendees: [{email: member.email}, {email: $scope.githubUser.email}],
                     summary: "Random Gaslight Lunch",
                     location: "Somewheres yummy",
-                    sendNotifications: true,
                     description: member.name + " and " + $scope.githubUser.name,
                     start: { dateTime: lunchStart.toDate() },
                     end: { dateTime: lunchEnd.toDate() }
                 };
                 googleCalendar.createEvent({
-                    calendarId: self.sharedCalendarId,
+                    calendarId: self.selectedCalendar.id,
+                    sendNotifications: true,
                     resource: event
                 }).then(function(event) {
                     $scope.newEvent = event;
